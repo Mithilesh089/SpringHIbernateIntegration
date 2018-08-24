@@ -26,7 +26,7 @@ public class UserDaoImp implements UserDao{
 
 	public List<User> listUsers() {
 		List<User> listUser=sessionFactory.getCurrentSession().createQuery("FROM User").list();
-		System.out.println(listUser.get(1).getId());
+	//	System.out.println(listUser.get(1).getId());
 		return listUser;
 	}
 
