@@ -18,7 +18,7 @@ public class UserDaoImp implements UserDao{
 	SessionFactory sessionFactory;
 	
 	public void add(User user) {
-	
+	System.out.println("Hello");
 		System.out.println(sessionFactory.getCurrentSession().save(user));
 		sessionFactory.getCurrentSession().save(user);
 		
