@@ -6,6 +6,7 @@ import com.boraji.tutorial.spring.entity.User;
 
 public interface UserService {
 
-	void add(User user);
-    List<User> listUsers();
+	public void add(User user);
+  public  List<User> listUsers();
+    public User getById(int id);
 }

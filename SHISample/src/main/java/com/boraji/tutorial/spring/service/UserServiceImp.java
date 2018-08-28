@@ -26,4 +26,10 @@ public class UserServiceImp implements UserService {
 		 return userDao.listUsers();
 	}
 
+	public User getById(int id) {
+		User user=	userDao.getById(id);
+		System.out.println(user);
+		return user;
+	}
+
 }

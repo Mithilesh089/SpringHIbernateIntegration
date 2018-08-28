@@ -8,8 +8,10 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.boraji.tutorial.spring.entity.User;
+
 
 @Repository
 public class UserDaoImp implements UserDao{
@@ -26,8 +28,13 @@ public class UserDaoImp implements UserDao{
 
 	public List<User> listUsers() {
 		List<User> listUser=sessionFactory.getCurrentSession().createQuery("FROM User").list();
-	//	System.out.println(listUser.get(1).getId());
 		return listUser;
+	}
+
+	@Transactional
+	public User getById(int id) {
+	User user=(User)sessionFactory.getCurrentSession().get(User.class,id);
+		return user;
 	}
 
 }

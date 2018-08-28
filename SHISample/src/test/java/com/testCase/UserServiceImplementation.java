@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 
 import com.boraji.tutorial.spring.dao.UserDao;
 
@@ -30,10 +31,6 @@ public class UserServiceImplementation {
 
 	@Mock
 	UserDao userdao;
-
-	/*
-	 * @MockBean User user1;
-	 */
 
 	@InjectMocks
 	UserServiceImp userSerciceImp;
@@ -64,8 +61,9 @@ public class UserServiceImplementation {
 		user.add(user1);
 		user.add(user2);
 
-		when(userdao.listUsers()).thenReturn(user);
-		assertEquals("Lokendra", userdao.listUsers().get(0).getFirstName());
+		Mockito.when(userdao.listUsers()).thenReturn(user);
+		System.out.println(userdao);
+		assertEquals("Lokendra", userSerciceImp.listUsers().get(0).getFirstName());
 
 	}
 
@@ -79,10 +77,25 @@ public class UserServiceImplementation {
 		user1.setFirstName("Lokendra");
 		user1.setLastName("Gupta");
 		// assertEquals(1,userdao.add(user1));
-		Mockito.doNothing().when(userdao).add(Matchers.any(User.class));
-		userdao.add(user1);
+		doNothing().when(userdao).add(Matchers.any(User.class));
+		userSerciceImp.add(user1);
 		verify(userdao, times(1)).add(user1);
 
+	}
+	
+	@Test
+	public void getUserbyIdTest()
+	{
+		
+		int id=3;
+		User user=new User();
+		user.setId(3);
+		user.setEmail("lgupta065@gmail.com");
+		user.setFirstName("Lokendra");
+		user.setLastName("Gupta");
+		when(userdao.getById(Matchers.any(Integer.class))).thenReturn(user);
+		System.out.println(user);
+		assertEquals(3,	userSerciceImp.getById(id).getId());
 	}
 
 }
